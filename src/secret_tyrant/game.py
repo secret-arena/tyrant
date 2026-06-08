@@ -1,8 +1,6 @@
 from enum import Enum
 from dataclasses import dataclass
-from typing import Final, Optional
-from random import shuffle
-
+from typing import Final, Optional from random import shuffle
 
 NUM_BLUE_POLICIES: Final = 6
 NUM_RED_POLICIES: Final = 11
@@ -156,9 +154,6 @@ class BallotBox:
         return len(self.votes)
     
     def get_result(self) -> Vote:
-        if not self.votes:
-            raise RuntimeError("internal error where get_result was called with no ballots cast")
-
         ja_count = list(self.votes.values()).count(Vote.JA)
 
         return Vote.JA if ja_count > len(self.votes.values()) // 2 else Vote.NEIN
