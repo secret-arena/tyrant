@@ -1,11 +1,14 @@
 from enum import Enum
 from dataclasses import dataclass
-from typing import Final, Optional from random import shuffle
+from typing import Final, Optional
+from random import shuffle
 
 NUM_BLUE_POLICIES: Final = 6
 NUM_RED_POLICIES: Final = 11
 POLICY_DRAW_COUNT: Final = 3
 TYRANT_ZONE_COUNT: Final = 3
+BLUE_TILES_TO_WIN: Final = 5
+RED_TILES_TO_WIN: Final = 6
 
 class Party(Enum):
     RED = "RED"
@@ -16,12 +19,6 @@ class Role(Enum):
     BLUE = "BLUE"
     TYRANT = "TYRANT"
 
-@dataclass
-class Player:
-    uid: int
-    party: Party
-    role: Role
-
 class PolicyTile(Enum):
     RED = "RED"
     BLUE = "BLUE"
@@ -30,12 +27,32 @@ class PresidentialPower(Enum):
     NONE = "NO POWER"
     INVESTIGATE = "INVESTIGATE LOYALTY"
     SPECIAL_ELECTION = "CALL SPECIAL ELECTION"
-    POLICY_PEEK = "POLICY_PEEK"
+    POLICY_PEEK = "POLICY PEEK"
     EXECUTION = "EXECUTION"
 
 class Vote(Enum):
     JA = "JA"
     NEIN = "NEIN"
+
+class GamePhase(Enum):
+    SETUP = "SETUP"
+    VOTING = "VOTING"
+    PRESIDENT_DISCARD = "PRESIDENT DISCARD"
+    CHANCELLOR_DISCARD = "CHANCELLOR DISCARD"
+    PRESIDENTIAL_POWER = "PRESIDENTIAL POWER"
+    GAME_OVER = "GAME OVER"
+
+@dataclass
+class Player:
+    uid: int
+    party: Party
+    role: Role
+
+@dataclass
+class Government:
+    chancellor_uid: int
+    president_uid: int
+    elected: bool = False
 
 class Deck:
     def __init__(self):
@@ -125,9 +142,9 @@ class Board:
                 return self.RED_TRACK[self.red_played - 1]
 
     def check_win(self) -> Optional[Party]:
-        if self.blue_played >= 5:
+        if self.blue_played >= BLUE_TILES_TO_WIN:
             return Party.BLUE
-        elif self.red_played >= 6:
+        elif self.red_played >= RED_TILES_TO_WIN:
             return Party.RED
         else:
             return None
@@ -140,8 +157,8 @@ class ElectionTracker:
         self.failed_elections = 0
 
     def increment(self) -> bool:
-        self.failed_elections = (self.failed_elections + 1) % 4
-        return self.failed_elections == 3
+        self.failed_elections = (self.failed_elections + 1) % 3
+        return self.failed_elections == 0
 
 class BallotBox:
     def __init__(self):
