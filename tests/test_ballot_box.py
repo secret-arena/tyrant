@@ -1,5 +1,5 @@
 import unittest
-from secret_tyrant.game import BallotBox, Vote
+from secret_tyrant.models import BallotBox, Vote
 
 class TestBallotBox(unittest.TestCase):
     def setUp(self):
