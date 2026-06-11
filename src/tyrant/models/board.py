@@ -5,6 +5,7 @@ TYRANT_ZONE_COUNT: Final = 3
 BLUE_TILES_TO_WIN: Final = 5
 RED_TILES_TO_WIN: Final = 6
 
+
 class Board:
     RED_TRACK_5_6: Final = (
         PresidentialPower.NONE,
@@ -12,7 +13,7 @@ class Board:
         PresidentialPower.POLICY_PEEK,
         PresidentialPower.EXECUTION,
         PresidentialPower.EXECUTION,
-        PresidentialPower.NONE
+        PresidentialPower.NONE,
     )
     RED_TRACK_7_8: Final = (
         PresidentialPower.NONE,
@@ -20,7 +21,7 @@ class Board:
         PresidentialPower.SPECIAL_ELECTION,
         PresidentialPower.EXECUTION,
         PresidentialPower.EXECUTION,
-        PresidentialPower.NONE
+        PresidentialPower.NONE,
     )
     RED_TRACK_9_10: Final = (
         PresidentialPower.INVESTIGATE,
@@ -28,12 +29,14 @@ class Board:
         PresidentialPower.SPECIAL_ELECTION,
         PresidentialPower.EXECUTION,
         PresidentialPower.EXECUTION,
-        PresidentialPower.NONE
+        PresidentialPower.NONE,
     )
 
     def __init__(self, player_count: int):
         if player_count < 5 or player_count > 10:
-            raise ValueError(f"Player count must be between 5 and 10 inclusive. Board received {player_count} for player count.") 
+            raise ValueError(
+                f"Player count must be between 5 and 10 inclusive. Board received {player_count} for player count."
+            )
 
         if 5 <= player_count <= 6:
             self.RED_TRACK = Board.RED_TRACK_5_6
@@ -63,4 +66,4 @@ class Board:
             return None
 
     def check_tyrant_zone(self) -> bool:
-        return self.red_played >= TYRANT_ZONE_COUNT 
+        return self.red_played >= TYRANT_ZONE_COUNT

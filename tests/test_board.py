@@ -2,6 +2,7 @@ import unittest
 from tyrant.models.board import Board
 from tyrant.models.enums import PolicyTile, Party
 
+
 class TestBoard(unittest.TestCase):
     def test_blue_win(self):
         """Tests that the blue party wins when five blue tiles are played."""
@@ -32,4 +33,3 @@ class TestBoard(unittest.TestCase):
             board.play_tile(PolicyTile.RED)
 
         self.assertTrue(board.check_tyrant_zone())
-

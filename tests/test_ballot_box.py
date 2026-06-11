@@ -2,6 +2,7 @@ import unittest
 from tyrant.models.ballot_box import BallotBox
 from tyrant.models.enums import Vote
 
+
 class TestBallotBox(unittest.TestCase):
     def setUp(self):
         self.ballot_box = BallotBox()
@@ -15,7 +16,7 @@ class TestBallotBox(unittest.TestCase):
         """Tests submitting a vote to the ballot box."""
         self.ballot_box.submit_vote(0, Vote.JA)
 
-        self.assertEqual(self.ballot_box.votes, {0 : Vote.JA})
+        self.assertEqual(self.ballot_box.votes, {0: Vote.JA})
         self.assertEqual(self.ballot_box.get_result(), Vote.JA)
 
     def test_get_result_ja_majority(self):
@@ -27,7 +28,7 @@ class TestBallotBox(unittest.TestCase):
             self.ballot_box.submit_vote(i, Vote.NEIN)
 
         self.assertEqual(self.ballot_box.get_result(), Vote.JA)
-                
+
     def test_get_result_nein_majority(self):
         """Tests that the ballot box returns a nein result when there is a majority of nein votes."""
         for i in range(2):
@@ -44,7 +45,7 @@ class TestBallotBox(unittest.TestCase):
         self.ballot_box.submit_vote(1, Vote.NEIN)
 
         self.assertEqual(self.ballot_box.get_result(), Vote.NEIN)
-    
+
     def test_vote_change(self):
         """Tests that a player can successfully change their submitted vote."""
         self.ballot_box.submit_vote(1, Vote.NEIN)
@@ -52,4 +53,3 @@ class TestBallotBox(unittest.TestCase):
 
         self.assertEqual(self.ballot_box.vote_count(), 1)
         self.assertEqual(self.ballot_box.get_result(), Vote.JA)
-

@@ -1,6 +1,7 @@
 import unittest
 from tyrant.models.election_tracker import ElectionTracker
 
+
 class TestElectionTracker(unittest.TestCase):
     def setUp(self):
         self.election_tracker = ElectionTracker()
@@ -18,4 +19,3 @@ class TestElectionTracker(unittest.TestCase):
         self.assertFalse(self.election_tracker.increment())
         self.assertFalse(self.election_tracker.increment())
         self.assertTrue(self.election_tracker.increment())
-

@@ -1,6 +1,7 @@
 import unittest
-from tyrant.models.deck import Deck 
+from tyrant.models.deck import Deck
 from tyrant.models.enums import PolicyTile
+
 
 class TestDeck(unittest.TestCase):
     def setUp(self):
@@ -27,4 +28,3 @@ class TestDeck(unittest.TestCase):
         self.deck.draw_pile = []
         with self.assertRaises(RuntimeError):
             self.deck.draw()
-
