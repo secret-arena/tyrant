@@ -1,17 +1,20 @@
+from dataclasses import dataclass
 from tyrant.models.enums import Vote
 
 
+@dataclass(frozen=True)
 class BallotBox:
-    def __init__(self):
-        self.votes = {}
+    votes: frozendict[int, Vote] = frozendict()
 
-    def submit_vote(self, uid: int, vote: Vote):
-        self.votes[uid] = vote
-
+    @property
     def vote_count(self) -> int:
         return len(self.votes)
 
-    def get_result(self) -> Vote:
-        ja_count = list(self.votes.values()).count(Vote.JA)
-
+    @property
+    def result(self) -> Vote:
+        ja_count = sum(1 for vote in self.votes.values() if vote == Vote.JA)
         return Vote.JA if ja_count > len(self.votes.values()) // 2 else Vote.NEIN
+
+
+def submit_vote(box: BallotBox, uid: int, vote: Vote) -> BallotBox:
+    return BallotBox(votes=box.votes | {uid: vote})

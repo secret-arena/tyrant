@@ -1,7 +1,18 @@
-class ElectionTracker:
-    def __init__(self):
-        self.failed_elections = 0
+from dataclasses import dataclass
+from typing import Final
 
-    def increment(self) -> bool:
-        self.failed_elections = (self.failed_elections + 1) % 3
-        return self.failed_elections == 0
+FAILURES_UNTIL_TOP_DECK: Final = 3
+
+
+@dataclass(frozen=True)
+class ElectionTracker:
+    failed_elections: int = 0
+
+
+def increment_election_tracker(
+    tracker: ElectionTracker,
+) -> tuple[ElectionTracker, bool]:
+    new_failed_elections = (tracker.failed_elections + 1) % FAILURES_UNTIL_TOP_DECK
+    return ElectionTracker(
+        failed_elections=new_failed_elections
+    ), new_failed_elections == 0

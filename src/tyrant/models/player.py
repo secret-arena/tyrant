@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from tyrant.models.enums import Party, Role
 
 
-@dataclass
+@dataclass(frozen=True)
 class Player:
     uid: int
     party: Party
