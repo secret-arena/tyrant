@@ -3,8 +3,8 @@ from dataclasses import dataclass
 from typing import Final
 from tyrant.models.enums import PolicyTile
 
-NUM_BLUE_POLICIES: Final = 6
-NUM_RED_POLICIES: Final = 11
+NUM_LIBERAL_POLICIES: Final = 6
+NUM_FASCIST_POLICIES: Final = 11
 POLICY_DRAW_COUNT: Final = 3
 
 
@@ -29,9 +29,9 @@ def check_draw_size(deck: Deck):
 
 def create_deck(rng: Random) -> Deck:
     """Creates and returns a new initialized, shuffled deck."""
-    initial_pile = [PolicyTile.BLUE] * NUM_BLUE_POLICIES + [
-        PolicyTile.RED
-    ] * NUM_RED_POLICIES
+    initial_pile = [PolicyTile.LIBERAL] * NUM_LIBERAL_POLICIES + [
+        PolicyTile.FASCIST
+    ] * NUM_FASCIST_POLICIES
     rng.shuffle(initial_pile)
     return Deck(draw_pile=tuple(initial_pile), discard_pile=())
 

@@ -1,40 +1,40 @@
-from enum import Enum
+from enum import StrEnum, auto
 
 
-class Party(Enum):
-    RED = "RED"
-    BLUE = "BLUE"
+class Party(StrEnum):
+    FASCIST = auto()
+    LIBERAL = auto()
 
 
-class Role(Enum):
-    RED = "RED"
-    BLUE = "BLUE"
-    TYRANT = "TYRANT"
+class Role(StrEnum):
+    FASCIST = auto()
+    LIBERAL = auto()
+    HITLER = auto()
 
 
-class PolicyTile(Enum):
-    RED = "RED"
-    BLUE = "BLUE"
+class PolicyTile(StrEnum):
+    FASCIST = auto()
+    LIBERAL = auto()
 
 
-class PresidentialPower(Enum):
-    NONE = "NO POWER"
-    INVESTIGATE = "INVESTIGATE LOYALTY"
-    SPECIAL_ELECTION = "CALL SPECIAL ELECTION"
-    POLICY_PEEK = "POLICY PEEK"
-    EXECUTION = "EXECUTION"
+class PresidentialPower(StrEnum):
+    NONE = auto()
+    INVESTIGATE_LOYALTY = auto()
+    CALL_SPECIAL_ELECTION = auto()
+    POLICY_PEEK = auto()
+    EXECUTION = auto()
 
 
-class Vote(Enum):
-    JA = "JA"
-    NEIN = "NEIN"
+class Vote(StrEnum):
+    JA = auto()
+    NEIN = auto()
 
 
-class GamePhase(Enum):
-    SETUP = "SETUP"
-    NOMINATION = "NOMINATION"
-    VOTING = "VOTING"
-    PRESIDENT_DISCARD = "PRESIDENT DISCARD"
-    CHANCELLOR_DISCARD = "CHANCELLOR DISCARD"
-    PRESIDENTIAL_POWER = "PRESIDENTIAL POWER"
-    GAME_OVER = "GAME OVER"
+class GamePhase(StrEnum):
+    SETUP = auto()
+    NOMINATION = auto()
+    VOTING = auto()
+    PRESIDENT_DISCARD = auto()
+    CHANCELLOR_DISCARD = auto()
+    PRESIDENTIAL_POWER = auto()
+    GAME_OVER = auto()

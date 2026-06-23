@@ -30,7 +30,7 @@ class TestDeck(unittest.TestCase):
 
     def test_discard_two(self):
         """Tests discarding two tiles moves them to the discard pile."""
-        new_deck = discard_policies(self.deck, PolicyTile.RED, PolicyTile.RED)
+        new_deck = discard_policies(self.deck, PolicyTile.FASCIST, PolicyTile.FASCIST)
         self.assertEqual(len(new_deck.discard_pile), 2)
 
     def test_draw_pile_empty_exception(self):
@@ -53,7 +53,7 @@ class TestDeck(unittest.TestCase):
         self.assertEqual(len(deck.draw_pile), 2)
 
         # Discard some policies
-        deck = discard_policies(deck, PolicyTile.RED, PolicyTile.BLUE)
+        deck = discard_policies(deck, PolicyTile.FASCIST, PolicyTile.LIBERAL)
         self.assertEqual(len(deck.discard_pile), 2)
 
         # Now shuffle should occur since len(draw_pile) < 3
@@ -77,7 +77,7 @@ class TestDeck(unittest.TestCase):
 
     def test_discard_policies_immutability(self):
         """Tests that discarding policies returns a new instance and does not mutate the original."""
-        new_deck = discard_policies(self.deck, PolicyTile.RED, PolicyTile.BLUE)
+        new_deck = discard_policies(self.deck, PolicyTile.FASCIST, PolicyTile.LIBERAL)
         self.assertEqual(len(self.deck.discard_pile), 0)
         self.assertEqual(len(new_deck.discard_pile), 2)
 
@@ -88,7 +88,9 @@ class TestDeck(unittest.TestCase):
         deck1_empty, _ = draw_policies(deck1_empty)
         deck1_empty, _ = draw_policies(deck1_empty)
         deck1_empty, _ = draw_policies(deck1_empty)
-        deck1_empty = discard_policies(deck1_empty, PolicyTile.RED, PolicyTile.BLUE)
+        deck1_empty = discard_policies(
+            deck1_empty, PolicyTile.FASCIST, PolicyTile.LIBERAL
+        )
 
         orig_draw_len = len(deck1_empty.draw_pile)
         orig_discard_len = len(deck1_empty.discard_pile)
@@ -129,8 +131,12 @@ class TestDeck(unittest.TestCase):
         deck2_empty, _ = draw_policies(deck2_empty)
         deck2_empty, _ = draw_policies(deck2_empty)
 
-        deck1_empty = discard_policies(deck1_empty, PolicyTile.RED, PolicyTile.BLUE)
-        deck2_empty = discard_policies(deck2_empty, PolicyTile.RED, PolicyTile.BLUE)
+        deck1_empty = discard_policies(
+            deck1_empty, PolicyTile.FASCIST, PolicyTile.LIBERAL
+        )
+        deck2_empty = discard_policies(
+            deck2_empty, PolicyTile.FASCIST, PolicyTile.LIBERAL
+        )
 
         deck1_shuffled, _ = shuffle_deck(deck1_empty, rng1)
         deck2_shuffled, _ = shuffle_deck(deck2_empty, rng2)

@@ -5,41 +5,41 @@ from tyrant.models.enums import PolicyTile, Party
 
 
 class TestBoard(unittest.TestCase):
-    def test_blue_win(self):
-        """Tests that the blue party wins when five blue tiles are played."""
+    def test_liberal_win(self):
+        """Tests that the liberal party wins when five liberal tiles are played."""
         for count in range(5, 11):
             with self.subTest(player_count=count):
                 board = Board(player_count=count)
 
                 for _ in range(5):
                     self.assertIsNone(board.winner)
-                    board, _ = play_tile(board, PolicyTile.BLUE)
+                    board, _ = play_tile(board, PolicyTile.LIBERAL)
 
-                self.assertEqual(board.winner, Party.BLUE)
+                self.assertEqual(board.winner, Party.LIBERAL)
 
-    def test_red_win(self):
-        """Tests that the red party wins when six red tiles are played."""
+    def test_fascist_win(self):
+        """Tests that the fascist party wins when six fascist tiles are played."""
         for count in range(5, 11):
             with self.subTest(player_count=count):
                 board = Board(player_count=count)
 
                 for _ in range(6):
                     self.assertIsNone(board.winner)
-                    board, _ = play_tile(board, PolicyTile.RED)
+                    board, _ = play_tile(board, PolicyTile.FASCIST)
 
-                self.assertEqual(board.winner, Party.RED)
+                self.assertEqual(board.winner, Party.FASCIST)
 
-    def test_tyrant_zone_entered(self):
-        """Tests that the board correctly identifies when the tyrant zone is entered."""
+    def test_hitler_zone_entered(self):
+        """Tests that the board correctly identifies when the hitler zone is entered."""
         for count in range(5, 11):
             with self.subTest(player_count=count):
                 board = Board(player_count=count)
 
                 for _ in range(3):
-                    self.assertFalse(board.tyrant_zone)
-                    board, _ = play_tile(board, PolicyTile.RED)
+                    self.assertFalse(board.hitler_zone)
+                    board, _ = play_tile(board, PolicyTile.FASCIST)
 
-                self.assertTrue(board.tyrant_zone)
+                self.assertTrue(board.hitler_zone)
 
     def test_immutability(self):
         """Tests that the Board dataclass is frozen and cannot be mutated."""
@@ -49,16 +49,16 @@ class TestBoard(unittest.TestCase):
                 with self.assertRaises(FrozenInstanceError):
                     board.player_count = 2
                 with self.assertRaises(FrozenInstanceError):
-                    board.blue_played = 2
+                    board.liberal_played = 2
                 with self.assertRaises(FrozenInstanceError):
-                    board.red_played = 2
+                    board.fascist_played = 2
 
     def test_play_tile_immutability(self):
         """Tests that play_tile returns a new Board instance and does not mutate the original."""
         for count in range(5, 11):
             with self.subTest(player_count=count):
                 board = Board(player_count=count)
-                new_board, _ = play_tile(board, PolicyTile.BLUE)
+                new_board, _ = play_tile(board, PolicyTile.LIBERAL)
 
-                self.assertEqual(0, board.blue_played)
-                self.assertEqual(1, new_board.blue_played)
+                self.assertEqual(0, board.liberal_played)
+                self.assertEqual(1, new_board.liberal_played)
